@@ -75,7 +75,7 @@ public class AppTest {
 	public void estadoEnumPU() {
 		
 		/**
-		 * Se instancian dos variables de tipo EstadoEnum
+		 * Se instancian dos objetos de tipo EstadoEnum
 		 */
 		EstadoEnum activo = EstadoEnum.ACTIVO;     
 		EstadoEnum inactivo = EstadoEnum.INACTIVO;	
