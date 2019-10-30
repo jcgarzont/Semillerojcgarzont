@@ -1,14 +1,29 @@
 package com.hbt.semillero.servicios;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.hbt.semillero.entidades.Comic;
+import com.hbt.semillero.entidades.EstadoEnum;
+import com.hbt.semillero.entidades.TematicaEnum;
+/**
+ * 
+ * <b>Descripción:<b> Clase para realizar las pruebas unitarias
+ * <b>Caso de Uso:<b> 
+ * @author Juan Camilo
+ * @version
+ */
 public class AppTest {
 
 	public void shouldAnswerWithTrue() {
 
 	}
-	
+	/**
+	 * Metodo encargado de probar la suma de dos numeros
+	 */
 	public void primeraPU() {
 		Long resultadoEsperado = 150L;
 		Long sumando1 = 100L; 
@@ -19,8 +34,10 @@ public class AppTest {
 		Assert.assertNotEquals(resultado, resultadoEsperado);	
 
 	}
-	@Test
-	public void inverticCadenaPU() {
+	/**
+	 *  Metodo encargado de probar el metodo invertir cadena
+	 */
+	public void invertirCadenaPU() {
 		
 		String cadena = "Juan Camilo";
 		//System.out.println(cadena);
@@ -35,7 +52,9 @@ public class AppTest {
 			Assert.assertEquals(cadena.charAt(x), cadenaInvertida.charAt(cadena.length()-1-x));
 		}
 	}
-	
+	/** 
+	 * Metodo para invertir una cadena 
+	 */
 	
 	private String invertirCadena(String cadena) {
 		String cadenaInvertida = "";
@@ -43,5 +62,85 @@ public class AppTest {
 			cadenaInvertida = cadenaInvertida + cadena.charAt(x);
 			}
 		return cadenaInvertida;
+	}
+	/**
+	 * 
+	 * Metodo encargado de probar la clase EstadoEnum
+	 * <b>Caso de Uso</b>
+	 * @author Juan Camilo
+	 *
+	 */
+	
+	@Test
+	public void estadoEnumPU() {
+		
+		/**
+		 * Se instancian dos variables de tipo EstadoEnum
+		 */
+		EstadoEnum activo = EstadoEnum.ACTIVO;     
+		EstadoEnum inactivo = EstadoEnum.INACTIVO;	
+
+		/**
+		 * Se accede al nombre y se verifica que sea el esperado
+		 */
+		String nombreActivo = activo.name();
+		Assert.assertEquals(nombreActivo, "ACTIVO");
+		String nombreInactivo = inactivo.name();
+		Assert.assertEquals(nombreInactivo, "INACTIVO");
+		
+		/**
+		 * Se usa el metodo toString y se verifica la cadena que retorna
+		 */
+		String stringActivo = activo.toString();
+		Assert.assertEquals(stringActivo, "ACTIVO");
+		String stringInactivo = inactivo.toString();
+		Assert.assertEquals(stringInactivo, "INACTIVO");
+		
+		/**
+		 * Se obtiene el entero con la posicion del enum y se verifica que sea el esperado
+		 */
+		Integer posActivo = activo.ordinal();
+		Assert.assertEquals(posActivo.intValue(),  0);
+		Integer posInactivo = inactivo.ordinal();
+		Assert.assertEquals(posInactivo.intValue(),  1);
+
+		/**
+		 * Se comparan el enum con el parámetro según el orden en el que están 
+		 * declaradas las constantes
+		 */
+		Integer activoToInactivo = activo.compareTo(inactivo);
+		Assert.assertEquals(activoToInactivo.intValue(),  -1);
+		Integer activoToActivo = activo.compareTo(activo);
+		Assert.assertEquals(activoToActivo.intValue(),  0);
+
+		/**
+		 * Se obtine un todos los enum, se verifica que no este vacio y que indice sea correcto
+		 */
+		EstadoEnum all[] = EstadoEnum.values();
+		Assert.assertNotNull(all);
+		Assert.assertEquals(all[0].toString(),  "ACTIVO");
+		Assert.assertEquals(all[1].toString(),  "INACTIVO");
+	}
+	/**
+	 * Método que usa el método toString de la entidad COMIC
+	 */
+	@Test
+	public void ComictoString() {
+		Comic comic = new Comic();
+		comic.setId("1");
+		comic.setNombre("Captain America Corps 1-5 USA");
+		comic.setEditorial("Panini Comics");
+		comic.setTematicaEnum(TematicaEnum.FANTASTICO);
+		comic.setColeccion("Biblioteca Marvel");
+		comic.setNumeroPaginas(128);
+		comic.setPrecio(BigDecimal.valueOf(12.93));
+		comic.setAutores("Phillippe Briones, Roger Stern");
+		comic.setColor(false);
+		comic.setFechaVenta(LocalDate.now());
+		comic.setEstadoEnum(EstadoEnum.ACTIVO);
+		comic.setCantidad(5L);
+		
+		String InfoComic = comic.toString();
+		System.out.println(InfoComic);
 	}
 }
