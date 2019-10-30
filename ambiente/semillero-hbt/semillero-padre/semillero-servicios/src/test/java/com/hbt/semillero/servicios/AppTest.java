@@ -32,7 +32,6 @@ public class AppTest {
 		Assert.assertEquals(resultado, resultadoEsperado);
 		resultadoEsperado = 200L;
 		Assert.assertNotEquals(resultado, resultadoEsperado);	
-
 	}
 	/**
 	 *  Metodo encargado de probar el metodo invertir cadena
