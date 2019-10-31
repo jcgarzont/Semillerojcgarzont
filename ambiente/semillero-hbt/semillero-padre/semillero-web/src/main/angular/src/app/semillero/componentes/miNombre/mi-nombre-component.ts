@@ -13,5 +13,5 @@ import { Component } from "@angular/core";
  })
 
  export class MiNombre{
-     nombreConCiudad = "Juan Camilo Garzon Tellez - Armenia";
+     nombreConCiudad :String = "Juan Camilo Garzon Tellez - Armenia";
  }
