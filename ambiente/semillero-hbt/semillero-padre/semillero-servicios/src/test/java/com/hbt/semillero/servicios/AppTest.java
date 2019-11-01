@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import com.hbt.semillero.entidades.Comic;
 import com.hbt.semillero.entidades.EstadoEnum;
 import com.hbt.semillero.entidades.TematicaEnum;
+import com.hbt.semillero.pojo.GestionarComicPOJO;
 /**
  * 
  * <b>Descripción:<b> Clase para realizar las pruebas unitarias
@@ -70,7 +71,8 @@ public class AppTest {
 	 *
 	 */
 	
-	@Test
+	@Test (enabled=false)
+
 	public void estadoEnumPU() {
 		
 		/**
@@ -121,10 +123,11 @@ public class AppTest {
 		Assert.assertEquals(all[1].toString(),  "INACTIVO");
 	}
 	/**
-	 * Método que usa el método toString de la entidad COMIC
+	 * Método que verifica al método toString de la entidad COMIC
 	 */
-	@Test
-	public void ComictoString() {
+	@Test (enabled=false)
+	
+	public void ComictoStringPU() {
 		Comic comic = new Comic();
 		comic.setId("1");
 		comic.setNombre("Captain America Corps 1-5 USA");
@@ -140,6 +143,23 @@ public class AppTest {
 		comic.setCantidad(5L);
 		
 		String InfoComic = comic.toString();
-		System.out.println(InfoComic);
+		Assert.assertNotNull(InfoComic);
+		//System.out.println(InfoComic);
 	}
+	/**
+	 * 
+	 * Metodo encargado de probar la creacion estatica de un comic
+	 * <b>Caso de Uso</b>
+	 * @author Juan Camilo
+	 *
+	 */
+	@Test (enabled=false)
+	public void crearComicDTOTest() {
+		GestionarComicPOJO gestionarComicPOJO = new GestionarComicPOJO();
+		gestionarComicPOJO.crearComicDTO();
+		Assert.assertNotNull(gestionarComicPOJO.getListaComics());
+		Assert.assertTrue(gestionarComicPOJO.getListaComics().size()!=0);
+		Assert.assertTrue(!gestionarComicPOJO.getListaComics().isEmpty());
+	}
+	
 }
