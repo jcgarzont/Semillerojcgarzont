@@ -29,12 +29,12 @@ import javax.persistence.Table;
 public class Comic implements Serializable{
 
 	/**
-	 * Atributo que determina  
+	 * Atributo que contiene el serial
 	 */
 	private static final long serialVersionUID = 4322034079745146450L;
 	
 	
-	private String id;
+	private Long id;
     private String nombre;
     private String editorial;
     private TematicaEnum tematicaEnum;
@@ -64,14 +64,14 @@ public class Comic implements Serializable{
 	@Column(name="SCID")
 	@SequenceGenerator(allocationSize = 1, name = "COMIC_SCID_GENERATOR", sequenceName = "SEQ_COMIC")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMIC_SCID_GENERATOR")
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 	/**
 	 * Metodo encargado de modificar el valor del atributo id
 	 * @param id El nuevo id a modificar.
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**
