@@ -3,6 +3,9 @@
  */
 package com.hbt.semillero.servicios;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.hbt.semillero.pojo.EjerciciosPOJO;;
@@ -74,7 +77,7 @@ public class EjerciciosTest {
 	 * @author Juan Camilo
 	 *
 	 */
-	@Test
+	//@Test
 	public void ejercicio4() {
 		EjerciciosPOJO ejerciciosPOJO = new EjerciciosPOJO();
 		boolean test;
@@ -85,4 +88,54 @@ public class EjerciciosTest {
 		//Verifica que el resultado sea false
 		Assert.assertFalse(test);
 	}
+	//@Test
+	public void ejercicio5() {
+		EjerciciosPOJO ejerciciosPOJO = new EjerciciosPOJO();
+		ejerciciosPOJO.ingresarValores(50);
+		ejerciciosPOJO.ingresarValores(1);
+		ejerciciosPOJO.ingresarValores(249);
+		ejerciciosPOJO.ingresarValores(-2);
+		List<Integer> lista = new ArrayList<>();
+		lista = ejerciciosPOJO.ordenar();
+	}
+	
+	//@Test
+	public void ejercicio7() {
+		EjerciciosPOJO ejerciciosPOJO = new EjerciciosPOJO();
+		//ejerciciosPOJO.tenis();
+	}
+	/**
+	 * 
+	 * Metodo encargado probar el metodo cambio de la clase EjerciciosPOJO
+	 * <b>Caso de Uso</b>
+	 * @author Juan Camilo
+	 *
+	 */
+	@Test
+	public void ejercicio8() {
+		EjerciciosPOJO ejerciciosPOJO = new EjerciciosPOJO();
+		Integer[] monedas = ejerciciosPOJO.cambio(1000);
+		
+		//Se verifica que esten 1 monedas de 1000, las demas en 0
+		Assert.assertEquals((int)monedas[0], 1);
+		Assert.assertEquals((int)monedas[1], 0);
+		Assert.assertEquals((int)monedas[2], 0);
+		Assert.assertEquals((int)monedas[3], 0);
+		Assert.assertEquals((int)monedas[4], 0);
+		Assert.assertEquals((int)monedas[5], 0);
+		
+		monedas = ejerciciosPOJO.cambio(5550);
+		
+		//Se verifica que esten 5 monedas de 1000, 1 de 500, y 1 de 50, las demas en 0
+		Assert.assertEquals((int)monedas[0], 5);
+		Assert.assertEquals((int)monedas[1], 1);
+		Assert.assertEquals((int)monedas[2], 0);
+		Assert.assertEquals((int)monedas[3], 0);
+		Assert.assertEquals((int)monedas[4], 0);
+		Assert.assertEquals((int)monedas[5], 1);
+
+
+	}
+	
+	
 }

@@ -4,6 +4,11 @@
 package com.hbt.semillero.pojo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <b>Descripción:<b> Clase que determina
@@ -41,4 +46,39 @@ public class EjerciciosPOJO {
 			return false;
 		}
 	}
+	public List<Integer> lista= new ArrayList<>();
+	public void ingresarValores(int numero) {
+		this.lista.add(numero);
+	}
+	
+	public List<Integer> ordenar() {
+        Integer [] ordenada = new Integer[lista.size()];
+		ordenada = this.lista.toArray(ordenada);
+		Arrays.sort(ordenada);
+		lista = Arrays.asList(ordenada);
+		return lista;
+	}
+	public Map<String, Integer> map=new HashMap<>();
+
+	public void tenis(String federer, Integer pF, String thiem, Integer pT) {
+		map.put(federer, pF);
+		map.put(thiem, pT);
+	}
+	
+	public Integer[] cambio(Integer dinero) {
+		Integer M_1000 = dinero/1000;
+		Integer saldo = dinero%1000;
+		Integer M_500 = saldo/500;
+		saldo = saldo%500;
+		Integer M_200 = saldo/200;
+		saldo = saldo%200;
+		Integer M_100 = saldo/100;
+		saldo = saldo%100;
+		Integer M_50 = saldo/50;
+		saldo = saldo%50;
+		
+		Integer[] monedas = new Integer[] {M_1000,M_500,M_100,M_200,M_100,M_50};
+		return monedas;
+	}
+	
 }
