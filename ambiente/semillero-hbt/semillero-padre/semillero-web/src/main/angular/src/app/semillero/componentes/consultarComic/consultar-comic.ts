@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ComicDTO } from '../../dto/comic.dto';
 
 /**
- *  @description
- *  @author 
+ *  @description Componenenete para visualizar la informacion de un comic
+ *  @author Juan Camilo Garzon Tellez <camilo_tellez04@hotmail.com>
  */
 @Component({
     selector: 'consultar-comic',
@@ -31,6 +31,10 @@ export class ConsultarComicComponent implements OnInit {
      */
     public submitted : boolean;
     
+    /**
+     * @description Este es el constructor del componente ConsultarComicComponent
+     *  @author Juan Camilo Garzon Tellez <camilo_tellez04@hotmail.com>
+     */
     constructor(private router : Router, private activatedRoute: ActivatedRoute, private fb : FormBuilder,) {
         console.log("entro al constructor del componente bienvenida");
         this.gestionarComicForm = this.fb.group({
@@ -45,12 +49,18 @@ export class ConsultarComicComponent implements OnInit {
         });
     }
 
+    /**
+     * @description Evento angular que se ejecuta al invocar el componente
+     *  @author Juan Camilo Garzon Tellez <camilo_tellez04@hotmail.com>
+     */
     ngOnInit(): void {
         let comic = this.activatedRoute.snapshot.params;
         this.consultarComic(comic);
     }
-
-    //public consultarComic(posicion : number) : void {
+    /**
+     * Metodo para desplegar la informacion del comic
+     * @param comic 
+     */
     public consultarComic(comic : any) : void {
         this.gestionarComicForm.controls.nombre.setValue(comic.nombre);
         this.gestionarComicForm.controls.editorial.setValue(comic.editorial);
@@ -69,9 +79,15 @@ export class ConsultarComicComponent implements OnInit {
         this.gestionarComicForm.controls.autores.disable();
         this.gestionarComicForm.controls.color.disable();
     }
+    /**
+     * Metodo para enrutar hacia el componente gestionar-comic
+     */
     public gestionarComic() : void {
         this.router.navigate(['gestionar-comic']);
     }
+    /**
+     * Metodo que obtienen los controles y sus propiedades
+     */
     get f() { 
         return this.gestionarComicForm.controls;
     }

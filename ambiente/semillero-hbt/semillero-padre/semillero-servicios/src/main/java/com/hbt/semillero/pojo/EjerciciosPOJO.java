@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -81,4 +82,26 @@ public class EjerciciosPOJO {
 		return monedas;
 	}
 	
+	public void ohNo() throws Exception {
+		throw new Exception();
+	}
+	
+	
+	public Boolean secuencia(Integer num) {
+		Integer[] patron = new Integer[] {23,33,25,80,36,num};
+		Integer digitos = 5;
+		for (int i = 0; i < patron.length; i++) {
+	        Integer resultado = 0;
+			while(patron[i] > 0) {
+	            resultado += patron[i] % 10;
+	            patron[i] = patron[i] / 10;
+	        }
+			if (patron[i] != digitos) {
+				return false;
+			}
+			digitos++;
+		}
+		
+		return true;
+	}
 }

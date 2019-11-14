@@ -111,7 +111,7 @@ public class EjerciciosTest {
 	 * @author Juan Camilo
 	 *
 	 */
-	@Test
+	//@Test
 	public void ejercicio8() {
 		EjerciciosPOJO ejerciciosPOJO = new EjerciciosPOJO();
 		Integer[] monedas = ejerciciosPOJO.cambio(1000);
@@ -133,9 +133,16 @@ public class EjerciciosTest {
 		Assert.assertEquals((int)monedas[3], 0);
 		Assert.assertEquals((int)monedas[4], 0);
 		Assert.assertEquals((int)monedas[5], 1);
-
-
 	}
-	
+	@Test
+	public void ejercicio11() {
+		EjerciciosPOJO ejerciciosPOJO = new EjerciciosPOJO();
+		Boolean Secuencia;
+		Secuencia = ejerciciosPOJO.secuencia(46);
+		Assert.assertTrue(Secuencia);
+		Secuencia = ejerciciosPOJO.secuencia(64);
+		Assert.assertTrue(Secuencia);
+		
+	}
 	
 }
