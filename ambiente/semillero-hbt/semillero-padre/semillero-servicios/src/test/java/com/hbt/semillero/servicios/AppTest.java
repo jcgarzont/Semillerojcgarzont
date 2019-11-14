@@ -129,7 +129,7 @@ public class AppTest {
 	
 	public void ComictoStringPU() {
 		Comic comic = new Comic();
-		comic.setId("1");
+		comic.setId(1L);
 		comic.setNombre("Captain America Corps 1-5 USA");
 		comic.setEditorial("Panini Comics");
 		comic.setTematicaEnum(TematicaEnum.FANTASTICO);
@@ -160,6 +160,27 @@ public class AppTest {
 		Assert.assertNotNull(gestionarComicPOJO.getListaComics());
 		Assert.assertTrue(gestionarComicPOJO.getListaComics().size()!=0);
 		Assert.assertTrue(!gestionarComicPOJO.getListaComics().isEmpty());
+	}
+	/**
+	 * 
+	 * Metodo encargado verificar las condiciones de comparacion con cadenas
+	 * <b>Caso de Uso</b>
+	 * @author Juan Camilo
+	 *
+	 */
+	@Test
+	public void comparandoCadenas(){
+		String s1 = "street";
+		String s2;
+		s2 = new String("street");
+		if (s1 == s2) {
+			Assert.assertTrue(s1==s2);
+			System.out.println("==");
+		}
+		if (s1.equals(s2)) {
+			Assert.assertTrue(s1.equals(s2));
+			System.out.println("equals");
+		}
 	}
 	
 }

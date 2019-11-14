@@ -19,15 +19,14 @@
 	</properties>
 
 	<profiles>
-        <profile>
-            <id>compile-angular</id>
-            <activation>
-                <property>
-                    <name>skipAngular</name>
-                    <value>!true</value>
-                </property>
-            </activation>
-
+		<profile>
+			<id>compile-angular</id>
+			<activation>
+				<property>
+					<name>skipAngular</name>
+					<value>!true</value>
+				</property>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -87,8 +86,6 @@
 					</plugin>
 				</plugins>
 			</build>
-	
 		</profile>
 	</profiles>
-      
 </project>
