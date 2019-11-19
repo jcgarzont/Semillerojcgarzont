@@ -2,6 +2,7 @@ import { OnInit, Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ComicDTO } from '../../dto/comic.dto';
+import { GestionarComicService } from '../../services/servicios/gestionar.comic.service';
 
 /**
  *  @description Componenenete para visualizar la informacion de un comic
@@ -30,12 +31,15 @@ export class ConsultarComicComponent implements OnInit {
      * Atributo que indica si se envio a validar el formulario
      */
     public submitted : boolean;
+
+
     
     /**
      * @description Este es el constructor del componente ConsultarComicComponent
      *  @author Juan Camilo Garzon Tellez <camilo_tellez04@hotmail.com>
      */
-    constructor(private router : Router, private activatedRoute: ActivatedRoute, private fb : FormBuilder,) {
+    constructor(private router : Router, private activatedRoute: ActivatedRoute, private fb : FormBuilder,
+        private gestionarComicService : GestionarComicService) {
         console.log("entro al constructor del componente bienvenida");
         this.gestionarComicForm = this.fb.group({
             nombre : [null, Validators.required],
@@ -54,14 +58,27 @@ export class ConsultarComicComponent implements OnInit {
      *  @author Juan Camilo Garzon Tellez <camilo_tellez04@hotmail.com>
      */
     ngOnInit(): void {
-        let comic = this.activatedRoute.snapshot.params;
-        this.consultarComic(comic);
+
+        //let params = this.activatedRoute.queryParams        
+        this.activatedRoute.queryParams.subscribe(params => {
+            console.log(params); 
+            console.log(params["idComic"]);
+            this.consultarComic(parseInt(params["idComic"]));
+          });
     }
     /**
      * Metodo para desplegar la informacion del comic
      * @param comic 
      */
-    public consultarComic(comic : any) : void {
+    public consultarComic(posicion : any) : void {
+        this.gestionarComicService.consultarComic(parseInt(posicion)).subscribe(comic => {
+            this.comic = comic;
+            this.llenarFormulario(this.comic);
+        }, error => {
+            console.log(error);
+        });
+    }
+    public llenarFormulario(comic : any) : void {
         this.gestionarComicForm.controls.nombre.setValue(comic.nombre);
         this.gestionarComicForm.controls.editorial.setValue(comic.editorial);
         this.gestionarComicForm.controls.tematica.setValue(comic.tematica);

@@ -24,6 +24,8 @@ import com.hbt.semillero.entidades.Comic;
  */
 @Stateless
 public class GestionarComicBean implements IGestionarComicLocal {
+//public class GestionarComicBean {
+
 	@PersistenceContext
     private EntityManager em;
 
@@ -45,12 +47,14 @@ public class GestionarComicBean implements IGestionarComicLocal {
 	 * 
 	 * @param comicModificar
 	 */
+	/*
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void modificarComic(ComicDTO comicModificar) {
         Comic comic = new Comic();
         //comic.setId(comicModificar.getId());
 		em.merge(comicModificar);
 	}
+	*/
 	/**
 	 * 
 	 * Metodo encargado de consultar un comic
@@ -60,12 +64,14 @@ public class GestionarComicBean implements IGestionarComicLocal {
 	 * @param id
 	 * @return
 	 */
+	
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public ComicDTO consultarComic(String id) {
 		Comic comic = em.find(Comic.class, Long.parseLong(id));
 		ComicDTO comicDTO = convertirComicToComicDTO(comic);
 		return comicDTO;
 	}
+	
 	/**
 	 * 
 	 * Metodo encargado de consultar un comic en la lista
@@ -83,6 +89,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#modificarComic(java.lang.Long, java.lang.String, com.hbt.semillero.dto.ComicDTO)
 	 */
 	//@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	/**
 	public void modificarComic(Long id, String nombre, ComicDTO comicNuevo) {
 		Comic comicModificar;
 		if (comicNuevo == null) { 
@@ -92,6 +99,14 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		}
 		comicModificar.setNombre(nombre);
 		em.merge(comicModificar);
+	}
+	*/
+	public void modificarComic(ComicDTO comicDTO) {
+		Comic comicModificar;
+		comicModificar = em.find(Comic.class, Long.valueOf(comicDTO.getId()));
+		comicModificar.setNombre(comicDTO.getNombre());
+		em.merge(comicModificar);
+		//em.merge(comicDTO);
 	}
 	/** 
 	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#eliminarComic(java.lang.Long)

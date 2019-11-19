@@ -3,6 +3,11 @@ import { ComicDTO } from '../../dto/comic.dto';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GestionarComicService } from '../../services/servicios/gestionar.comic.service';
+import { ResultadoDTO } from '../../dto/resultado.dto';
+import { JsonPipe } from '@angular/common';
+import { HttpParams } from '@angular/common/http';
+
 
 /**
  * @description Componenete gestionar comic, el cual contiene la logica CRUD
@@ -58,17 +63,19 @@ export class GestionarComicComponent implements OnInit {
      * @author Diego Fernando Alvarez Silva <dalvarez@heinsohn.com.co>
      */
     constructor(private fb : FormBuilder,
-        private router : Router) {
+        private router : Router,
+        private gestionarComicService : GestionarComicService) {
         this.gestionarComicForm = this.fb.group({
             nombre : [null, Validators.required],
             editorial : [null, Validators.required],
-            tematica : [null, Validators.required],
+            tematica : [null],
             coleccion : [null, Validators.required],
             numeroPaginas : [null, Validators.required],
             precio : [null, Validators.required],
             autores : [null, Validators.required],
             color : [null]
         });
+        this.editando = false;
     }
 
     /**
@@ -80,12 +87,25 @@ export class GestionarComicComponent implements OnInit {
         this.comic = new ComicDTO();
         this.listaComics = new Array<ComicDTO>();
         this.eliminar = false;
+        this.consultarComics();
+
+    }
+    /**
+     * @description Metodo encargado de consultar los comics existentes
+     * @author Diego Fernando Alvarez Silva <dalvarez@heinsohn.com.co>
+     */
+    public consultarComics() : void {
+        this.gestionarComicService.consultarComics().subscribe(listaComics => {
+            this.listaComics = listaComics;
+        }, error => {
+            console.log(error);
+        });
     }
 
     /**
      * @description Metodo que permite validar el formulario y crear o actulizar un comic
      */
-    public crearActualizarComic() : void {
+    /* public crearActualizarComic() : void {
         this.submitted = true;
         if(this.gestionarComicForm.invalid) {
             return;
@@ -122,13 +142,75 @@ export class GestionarComicComponent implements OnInit {
             this.limpiarFormulario();
             return;
         }
-    }
+    } */
+
+
+    public crearActualizarComic() : void {
+        this.submitted = true;
+        if(this.gestionarComicForm.invalid) {
+            return;
+        }
+        
+        this.comic = new ComicDTO();
+        this.comic.nombre = this.gestionarComicForm.controls.nombre.value;
+        this.comic.editorial = this.gestionarComicForm.controls.editorial.value;
+        this.comic.tematica = this.gestionarComicForm.controls.tematica.value;
+        this.comic.coleccion = this.gestionarComicForm.controls.coleccion.value;
+        this.comic.numeroPaginas = this.gestionarComicForm.controls.numeroPaginas.value;
+        this.comic.precio = this.gestionarComicForm.controls.precio.value;
+        this.comic.autores = this.gestionarComicForm.controls.autores.value;
+        this.comic.color = this.gestionarComicForm.controls.color.value;
+        this.comic.cantidad = 12;
+        
+        if(!this.editando){
+
+            this.gestionarComicService.crearComic(this.comic).subscribe(resultadoDTO => {
+                if(resultadoDTO.exitoso) {
+                    this.consultarComics();
+                    this.limpiarFormulario();
+                }
+            }, error => {
+                console.log(error);
+            });
+        }
+        else{
+            this.comic = this.listaComics[this.index];
+            this.comic.nombre = this.gestionarComicForm.controls.nombre.value;
+            this.comic.editorial = this.gestionarComicForm.controls.editorial.value;
+            this.comic.tematica = this.gestionarComicForm.controls.tematica.value;
+            this.comic.coleccion = this.gestionarComicForm.controls.coleccion.value;
+            this.comic.numeroPaginas = this.gestionarComicForm.controls.numeroPaginas.value;
+            this.comic.precio = this.gestionarComicForm.controls.precio.value;
+            this.comic.autores = this.gestionarComicForm.controls.autores.value;
+            this.comic.color = this.gestionarComicForm.controls.color.value;
+            this.comic.cantidad = 12;
+            console.log(this.comic.id);
+            this.gestionarComicService.modificarComic(this.comic).subscribe(ResultadoDTO =>{
+                if (ResultadoDTO.exitoso){
+                    this.consultarComics();
+                    this.limpiarFormulario();
+                    this.editando = false;
+                }
+            }, error => {
+                console.log(error);
+            }); 
+        }
+        
+    } 
+
+
+
     /**
      * Metodo que enruta hacia el componente consultar-comic
      * @param comic 
      */
-    public consultarComic(comic : any) : void {
-        this.router.navigate(['consultar-comic',comic])
+    public consultarComic(posicion : number) : void {
+        let comics = this.listaComics[posicion];
+        let params = new HttpParams()
+                .set('idComic', comics.id);
+        //this.router.navigate(['consultar-comic',{params}]);
+        this.router.navigate(['consultar-comic'], {queryParams: {idComic: comics.id}});
+
     } 
 
     /**
@@ -166,10 +248,19 @@ export class GestionarComicComponent implements OnInit {
      * Metodo para eliminar un comic
      * @param posicion 
      */
-    private eliminarComic(posicion: number) : void{
-        this.listaComics.splice(posicion,1);
-        this.eliminar = true;
-
+    public eliminarComic(posicion: number) : void{
+        //this.listaComics.splice(posicion,1);
+        let comic = this.listaComics[posicion];
+        console.log(posicion);
+        console.log(parseInt(comic.id));
+        this.gestionarComicService.eliminarComic(parseInt(comic.id)).subscribe(resultadoDTO => {
+            if(resultadoDTO.exitoso) {
+                this.consultarComics();
+                this.eliminar = true;
+            }
+        }, error => {
+            console.log(error);
+        });
     }
 
     /**

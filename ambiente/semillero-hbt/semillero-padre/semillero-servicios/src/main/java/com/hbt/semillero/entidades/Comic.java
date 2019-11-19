@@ -78,7 +78,7 @@ public class Comic implements Serializable{
 	 * Metodo encargado de retornar el valor del atributo nombre
 	 * @return El nombre asociado a la clase
 	 */
-	@Column(name = "SCNOMBRE")
+	@Column(name = "SCNOMBRE", unique=true)
 	public String getNombre() {
 		return nombre;
 	}
