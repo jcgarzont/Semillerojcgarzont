@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -20,10 +19,10 @@ import com.hbt.semillero.dto.ResultadoDTO;
 import com.hbt.semillero.ejb.IGestionarComicLocal;
 
 /**
- * <b>Descripción:<b> Clase que determina el servicio rest que permite gestionar
+ * <b>Descripción:<b> Clase que determina el servicio rest que permite gestionar el comic
  * un comic
  * 
- * @author ccastano
+ * @author Juan Camilo
  * @version
  */
 @Path("/GestionarComic")
@@ -35,27 +34,6 @@ public class GestionarComicRest {
 	@EJB
 	private IGestionarComicLocal gestionarComicEJB;
 
-	/**
-	 * 
-	 * Metodo encargado de traer la informacion de un comic determiando
-	 * http://localhost:8085/semillero-servicios/rest/GestionarComic/saludo
-	 * 
-	 * @param idComic
-	 * @return
-	 */
-	@GET
-	@Path("/saludo")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String primerRest() {
-		return "Prueba inicial servicios rest en el semillero java hbt";
-	}
-	
-	@GET
-	@Path("/saludar")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String segundoRest() {
-		return "otro test";
-	}
 
 	/**
 	 * 
@@ -112,21 +90,11 @@ public class GestionarComicRest {
 	/**
 	 * 
 	 * Metodo encargado de modificar el nombre de un comic
-	 * http://localhost:8085/semillero-servicios/rest/GestionarComic/modificar?idComic=1&nombre=nuevonombre
+	 * http://localhost:8085/semillero-servicios/rest/GestionarComic/modificar
 	 * @param idComic identificador del comic a buscar
 	 * @param nombre nombre nuevo del comic
 	 */
-	/*
-	@POST
-	@Path("/modificar")
-	@Produces(MediaType.APPLICATION_JSON)
-	//public ResultadoDTO modificarComic(@QueryParam("id") Long idComic, @QueryParam("nombre") String nombre) {
-	public ResultadoDTO modificarComic(Long idComic,String nombre) {
-		gestionarComicEJB.modificarComic(idComic, nombre, null);
-		ResultadoDTO resultadoDTO = new ResultadoDTO(Boolean.TRUE, "comic modificado");
-		return resultadoDTO;
-	}
-	*/
+
 	@POST
 	@Path("/modificar")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -145,14 +113,12 @@ public class GestionarComicRest {
 	@POST
 	@Path("/eliminar")
 	@Produces(MediaType.APPLICATION_JSON)
-	//public ResultadoDTO eliminarComic(@QueryParam("id") int id) {
 	public ResultadoDTO eliminarComic(Long id) {
 		ResultadoDTO resultadoDTO = new ResultadoDTO(Boolean.TRUE, "error");
-		//if (id == 5) {
-			//gestionarComicEJB.eliminarComic(idComic);
 		gestionarComicEJB.eliminarComic(id);
 		resultadoDTO = new ResultadoDTO(Boolean.TRUE, "Comic eliminado exitosamente");
-		//}
 		return resultadoDTO;
 	}
+	
+
 }

@@ -31,7 +31,7 @@ public class GestionarComicPOJOTest {
 	 * @author Juan Camilo
 	 *
 	 */
-	@Test
+	//@Test
 	public void GestionarComicDTOTest() {
 		/**
 		 * Se intancia el objeto gestionarComicPOJO, se agrega el primer comic y se

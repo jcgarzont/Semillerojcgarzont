@@ -3,11 +3,15 @@
  */
 package com.hbt.semillero.servicios;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+
 import com.hbt.semillero.pojo.EjerciciosPOJO;;
 
 /**
@@ -134,7 +138,6 @@ public class EjerciciosTest {
 		Assert.assertEquals((int)monedas[4], 0);
 		Assert.assertEquals((int)monedas[5], 1);
 	}
-	@Test
 	public void ejercicio11() {
 		EjerciciosPOJO ejerciciosPOJO = new EjerciciosPOJO();
 		Boolean Secuencia;
@@ -145,4 +148,26 @@ public class EjerciciosTest {
 		
 	}
 	
+	@Test
+	public void randomTest() {
+		
+		
+		/*
+		String uuid = UUID.randomUUID().toString();
+		String number= uuid.replaceAll("[^0-9]", "");
+		number= number.replaceAll("-", "");
+		String uuid2 = uuid.replaceAll("[0-9]", "");		 
+		uuid2 = uuid2.replaceAll("-", "");
+		String randomF = Character.toUpperCase((uuid2.charAt(0))) + Character.toString(number.charAt(0)) + uuid2.substring(1, 7);
+	    System.out.println(randomF);
+	    */
+    }
+	
+	//@Test
+	public void localdateTest() {
+		
+		LocalDate local = LocalDate.of(2019, 7, 19);
+		System.out.println(local);
+		
+	}
 }

@@ -32,9 +32,9 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label for="tematica">Tematica:</label>
-                    <select class="form-control" id="tematica" formControlName="tematica"
-                        [ngClass]="{ 'is-invalid': submitted && f.tematica.errors }">
+                    <label for="tematicaEnum">Tematica:</label>
+                    <select class="form-control" id="tematicaEnum" formControlName="tematicaEnum"
+                        [ngClass]="{ 'is-invalid': submitted && f.tematicaEnum.errors }">
                         <option value="AVENTURAS">AVENTURAS</option>
                         <option value="BELICO">BELICO</option>
                         <option value="DEPORTIVO">DEPORTIVO</option>
@@ -134,7 +134,7 @@
                         <tr *ngFor="let comic of listaComics;let i=index;">
                             <th scope="row">{{comic.id}}</th>
                             <td>{{comic.nombre | uppercase }}</td>
-                            <td>{{comic.tematica | lowercase }}</td>
+                            <td>{{comic.tematicaEnum | lowercase }}</td>
                             <td>{{comic.precio | number: '.2'}}</td>
                             <td>{{comic.color ? 'Si' : 'No' }}</td>
                             <td>

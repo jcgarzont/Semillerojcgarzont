@@ -44,7 +44,7 @@ export class ConsultarComicComponent implements OnInit {
         this.gestionarComicForm = this.fb.group({
             nombre : [null, Validators.required],
             editorial : [null],
-            tematica : [null],
+            tematicaEnum : [null],
             coleccion : [null],
             numeroPaginas : [null],
             precio : [null],
@@ -81,20 +81,21 @@ export class ConsultarComicComponent implements OnInit {
     public llenarFormulario(comic : any) : void {
         this.gestionarComicForm.controls.nombre.setValue(comic.nombre);
         this.gestionarComicForm.controls.editorial.setValue(comic.editorial);
-        this.gestionarComicForm.controls.tematica.setValue(comic.tematica);
+        this.gestionarComicForm.controls.tematicaEnum.setValue(comic.tematicaEnum);
         this.gestionarComicForm.controls.coleccion.setValue(comic.coleccion);
         this.gestionarComicForm.controls.numeroPaginas.setValue(comic.numeroPaginas);
         this.gestionarComicForm.controls.precio.setValue(comic.precio);
         this.gestionarComicForm.controls.autores.setValue(comic.autores);
-        this.gestionarComicForm.controls.color.setValue(comic.color);
+        this.gestionarComicForm.controls.color.setValue(String(comic.color));
         this.gestionarComicForm.controls.nombre.disable();
         this.gestionarComicForm.controls.editorial.disable();
-        this.gestionarComicForm.controls.tematica.disable();
+        this.gestionarComicForm.controls.tematicaEnum.disable();
         this.gestionarComicForm.controls.coleccion.disable();
         this.gestionarComicForm.controls.numeroPaginas.disable();
         this.gestionarComicForm.controls.precio.disable();
         this.gestionarComicForm.controls.autores.disable();
         this.gestionarComicForm.controls.color.disable();
+        console.log(comic.color);
     }
     /**
      * Metodo para enrutar hacia el componente gestionar-comic

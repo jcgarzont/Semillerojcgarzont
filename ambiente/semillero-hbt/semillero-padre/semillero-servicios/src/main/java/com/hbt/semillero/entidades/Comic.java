@@ -6,6 +6,8 @@ package com.hbt.semillero.entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,8 +15,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 
 /**
  * <b>Descripción:<b> Clase que determina la entidad comic
@@ -180,6 +184,11 @@ public class Comic implements Serializable{
 	public void setAutores(String autores) {
 		this.autores = autores;
 	}
+	
+	@PrePersist
+	private void generateSecret(){
+	    this.setAutores(UUID.randomUUID().toString());
+	}
 	/**
 	 * Metodo encargado de retornar el valor del atributo color
 	 * @return El color asociado a la clase
@@ -209,7 +218,9 @@ public class Comic implements Serializable{
 	 */
 	public void setFechaVenta(LocalDate fechaVenta) {
 		this.fechaVenta = fechaVenta;
-	}
+		}
+
+	
 	/**
 	 * Metodo encargado de retornar el valor del atributo estadoEnum
 	 * @return El estadoEnum asociado a la clase
@@ -255,7 +266,7 @@ public class Comic implements Serializable{
 	public String toString() {
 		return "Comic [id=" + id + ", nombre=" + nombre + ", editorial=" + editorial + ", tematicaEnum=" + tematicaEnum
 				+ ", coleccion=" + coleccion + ", numeroPaginas=" + numeroPaginas + ", precio=" + precio + ", autores="
-				+ autores + ", color=" + color + ", fechaVenta=" + fechaVenta + ", estadoEnum=" + estadoEnum
+				+ autores + ", color=" + color + ", fechaVenta=" + fechaVenta + ", estado=" + estadoEnum
 				+ ", cantidad=" + cantidad + "]";
 	}
 	/** 

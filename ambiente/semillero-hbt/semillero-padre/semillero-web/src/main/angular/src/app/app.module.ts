@@ -22,6 +22,7 @@ export { ResultadoDTO } from './semillero/dto/resultado.dto';
 import {EjemploService} from './semillero/services/ejemplo.service';
 import {AbstractService} from './semillero/services/template.service';
 import { ConsultarComicComponent } from './semillero/componentes/consultarComic/consultar-comic';
+import { GestionarPersonaComponent } from './semillero/componentes/gestionarPersona/gestionar-persona-component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ConsultarComicComponent } from './semillero/componentes/consultarComic/
     BienvenidaComponent,
     CrearPersonaComponent,
     GestionarComicComponent,
-    ConsultarComicComponent
+    ConsultarComicComponent,
+    GestionarPersonaComponent
   ],
   imports: [
     BrowserModule,

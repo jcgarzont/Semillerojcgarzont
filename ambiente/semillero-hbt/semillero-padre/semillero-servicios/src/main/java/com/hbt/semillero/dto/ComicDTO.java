@@ -296,10 +296,10 @@ public class ComicDTO implements Serializable{
 
 	/**
 	 * Metodo encargado de modificar el valor del atributo fechaVenta
-	 * @param fechaVenta El nuevo fechaVenta a modificar.
+	 * @param date El nuevo fechaVenta a modificar.
 	 */
-	public void setFechaVenta(LocalDate fechaVenta) {
-		this.fechaVenta = fechaVenta;
+	public void setFechaVenta(LocalDate date) {
+		this.fechaVenta = date;
 	}
 
 	/**

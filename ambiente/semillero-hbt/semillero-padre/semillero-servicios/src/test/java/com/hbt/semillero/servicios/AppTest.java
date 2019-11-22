@@ -168,7 +168,7 @@ public class AppTest {
 	 * @author Juan Camilo
 	 *
 	 */
-	@Test
+	//@Test
 	public void comparandoCadenas(){
 		String s1 = "street";
 		String s2;
@@ -182,5 +182,6 @@ public class AppTest {
 			System.out.println("equals");
 		}
 	}
+	
 	
 }

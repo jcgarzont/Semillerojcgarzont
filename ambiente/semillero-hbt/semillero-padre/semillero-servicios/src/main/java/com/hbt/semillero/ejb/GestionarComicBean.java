@@ -36,7 +36,6 @@ public class GestionarComicBean implements IGestionarComicLocal {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void crearComic(ComicDTO comicDTO) {
         Comic comic = convertirComicDTOToComic(comicDTO);
-        
         em.persist(comic);
 	}
 	/**
@@ -103,8 +102,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 	*/
 	public void modificarComic(ComicDTO comicDTO) {
 		Comic comicModificar;
-		comicModificar = em.find(Comic.class, Long.valueOf(comicDTO.getId()));
-		comicModificar.setNombre(comicDTO.getNombre());
+		comicModificar = convertirComicDTOToComic(comicDTO); 
 		em.merge(comicModificar);
 		//em.merge(comicDTO);
 	}

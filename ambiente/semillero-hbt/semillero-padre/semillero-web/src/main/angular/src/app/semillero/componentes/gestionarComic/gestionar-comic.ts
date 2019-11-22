@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GestionarComicService } from '../../services/servicios/gestionar.comic.service';
 import { ResultadoDTO } from '../../dto/resultado.dto';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, DatePipe } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 
 
@@ -17,7 +17,8 @@ import { HttpParams } from '@angular/common/http';
 @Component({
     selector: 'gestionar-comic',
     templateUrl: './gestionar-comic.html',
-    styleUrls: ['./gestionar-comic.css']
+    styleUrls: ['./gestionar-comic.css'],
+    providers: [DatePipe]
 })
 export class GestionarComicComponent implements OnInit {
 
@@ -64,11 +65,12 @@ export class GestionarComicComponent implements OnInit {
      */
     constructor(private fb : FormBuilder,
         private router : Router,
-        private gestionarComicService : GestionarComicService) {
+        private gestionarComicService : GestionarComicService,
+        public datepipe: DatePipe) {
         this.gestionarComicForm = this.fb.group({
             nombre : [null, Validators.required],
             editorial : [null, Validators.required],
-            tematica : [null],
+            tematicaEnum : [null],
             coleccion : [null, Validators.required],
             numeroPaginas : [null, Validators.required],
             precio : [null, Validators.required],
@@ -105,44 +107,7 @@ export class GestionarComicComponent implements OnInit {
     /**
      * @description Metodo que permite validar el formulario y crear o actulizar un comic
      */
-    /* public crearActualizarComic() : void {
-        this.submitted = true;
-        if(this.gestionarComicForm.invalid) {
-            return;
-        }
-        if(this.editando){
-            this.comic = this.listaComics[this.index];
-            this.comic.nombre = this.gestionarComicForm.controls.nombre.value;
-            this.comic.editorial = this.gestionarComicForm.controls.editorial.value;
-            this.comic.tematica = this.gestionarComicForm.controls.tematica.value;
-            this.comic.coleccion = this.gestionarComicForm.controls.coleccion.value;
-            this.comic.numeroPaginas = this.gestionarComicForm.controls.numeroPaginas.value;
-            this.comic.precio = this.gestionarComicForm.controls.precio.value;
-            this.comic.autores = this.gestionarComicForm.controls.autores.value;
-            this.comic.color = this.gestionarComicForm.controls.color.value;
 
-            this.listaComics.splice(this.index,1,this.comic);
-            this.limpiarFormulario();
-            this.editando = false;
-            return;
-        }
-        if(!this.editando){
-            this.idComic++;
-            this.comic = new ComicDTO();
-            this.comic.id = this.idComic + "";
-            this.comic.nombre = this.gestionarComicForm.controls.nombre.value;
-            this.comic.editorial = this.gestionarComicForm.controls.editorial.value;
-            this.comic.tematica = this.gestionarComicForm.controls.tematica.value;
-            this.comic.coleccion = this.gestionarComicForm.controls.coleccion.value;
-            this.comic.numeroPaginas = this.gestionarComicForm.controls.numeroPaginas.value;
-            this.comic.precio = this.gestionarComicForm.controls.precio.value;
-            this.comic.autores = this.gestionarComicForm.controls.autores.value;
-            this.comic.color = this.gestionarComicForm.controls.color.value;
-            this.listaComics.push(this.comic);
-            this.limpiarFormulario();
-            return;
-        }
-    } */
 
 
     public crearActualizarComic() : void {
@@ -154,13 +119,14 @@ export class GestionarComicComponent implements OnInit {
         this.comic = new ComicDTO();
         this.comic.nombre = this.gestionarComicForm.controls.nombre.value;
         this.comic.editorial = this.gestionarComicForm.controls.editorial.value;
-        this.comic.tematica = this.gestionarComicForm.controls.tematica.value;
+        this.comic.tematicaEnum = this.gestionarComicForm.controls.tematicaEnum.value;
         this.comic.coleccion = this.gestionarComicForm.controls.coleccion.value;
         this.comic.numeroPaginas = this.gestionarComicForm.controls.numeroPaginas.value;
         this.comic.precio = this.gestionarComicForm.controls.precio.value;
         this.comic.autores = this.gestionarComicForm.controls.autores.value;
         this.comic.color = this.gestionarComicForm.controls.color.value;
         this.comic.cantidad = 12;
+        this.comic.fechaVenta = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
         
         if(!this.editando){
 
@@ -177,7 +143,7 @@ export class GestionarComicComponent implements OnInit {
             this.comic = this.listaComics[this.index];
             this.comic.nombre = this.gestionarComicForm.controls.nombre.value;
             this.comic.editorial = this.gestionarComicForm.controls.editorial.value;
-            this.comic.tematica = this.gestionarComicForm.controls.tematica.value;
+            this.comic.tematicaEnum = this.gestionarComicForm.controls.tematicaEnum.value;
             this.comic.coleccion = this.gestionarComicForm.controls.coleccion.value;
             this.comic.numeroPaginas = this.gestionarComicForm.controls.numeroPaginas.value;
             this.comic.precio = this.gestionarComicForm.controls.precio.value;
@@ -221,7 +187,7 @@ export class GestionarComicComponent implements OnInit {
         let comic = this.listaComics[posicion];
         this.gestionarComicForm.controls.nombre.setValue(comic.nombre);
         this.gestionarComicForm.controls.editorial.setValue(comic.editorial);
-        this.gestionarComicForm.controls.tematica.setValue(comic.tematica);
+        this.gestionarComicForm.controls.tematicaEnum.setValue(comic.tematicaEnum);
         this.gestionarComicForm.controls.coleccion.setValue(comic.coleccion);
         this.gestionarComicForm.controls.numeroPaginas.setValue(comic.numeroPaginas);
         this.gestionarComicForm.controls.precio.setValue(comic.precio);
@@ -237,7 +203,7 @@ export class GestionarComicComponent implements OnInit {
         this.submitted = false;
         this.gestionarComicForm.controls.nombre.setValue(null);
         this.gestionarComicForm.controls.editorial.setValue(null);
-        this.gestionarComicForm.controls.tematica.setValue(null);
+        this.gestionarComicForm.controls.tematicaEnum.setValue(null);
         this.gestionarComicForm.controls.coleccion.setValue(null);
         this.gestionarComicForm.controls.numeroPaginas.setValue(null);
         this.gestionarComicForm.controls.precio.setValue(null);
