@@ -8,10 +8,13 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -35,8 +38,7 @@ public class Usuario implements Serializable {
 	private EstadoEnum estadoEnum;
 	private Long idPersona;
 	
-	@OneToOne
-	private Persona persona;
+
 	/**
 	 * Constructor de la clase.
 	 */
@@ -65,6 +67,8 @@ public class Usuario implements Serializable {
 	 */
 	@Id
 	@Column(name="SUID")
+	@SequenceGenerator(allocationSize = 1, name = "USUARIO_SUID_GENERATOR", sequenceName = "SEQ_USUARIO")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_SUID_GENERATOR")
 	public Long getId() {
 		return id;
 	}
@@ -110,6 +114,7 @@ public class Usuario implements Serializable {
 	 * @return El estadoEnum asociado a la clase
 	 */
 	@Column(name="SUESTADO")
+	@Enumerated(value = EnumType.STRING)
 	public EstadoEnum getEstadoEnum() {
 		return estadoEnum;
 	}

@@ -18,6 +18,7 @@ import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.dto.ResultadoDTO;
 import com.hbt.semillero.dto.UsuarioDTO;
 import com.hbt.semillero.ejb.IGestionarUsuarioLocal;
+import com.hbt.semillero.entidades.Usuario;
 
 /**
  * <b>Descripción:<b> Clase que determina el servicio rest que permite gestionar los usuarios
@@ -40,6 +41,14 @@ public class GestionarUsuarioRest {
 	 * @param usuarioDTO
 	 * @return
 	 */
+
+	@GET
+	@Path("/saludo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String primerRest() {
+		return "Prueba inicial servicios rest en el semillero java hbt";
+	}
+	
 	@POST
 	@Path("/crear")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -59,10 +68,10 @@ public class GestionarUsuarioRest {
 	 * @param id
 	 * @return
 	 */
-	@GET
+	@POST
 	@Path("/consultarUsuario")
 	@Produces(MediaType.APPLICATION_JSON)
-	public UsuarioDTO consultarComic(@QueryParam("id") Long id) {
+	public UsuarioDTO consultarUsuario(Long id) {
 		if (id != null) {
 			UsuarioDTO usuarioDTO = gestionarUsuarioEJB.consultarUsuario(id.toString());
 			return usuarioDTO;

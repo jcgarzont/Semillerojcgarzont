@@ -176,7 +176,6 @@ export class GestionarComicComponent implements OnInit {
                 .set('idComic', comics.id);
         //this.router.navigate(['consultar-comic',{params}]);
         this.router.navigate(['consultar-comic'], {queryParams: {idComic: comics.id}});
-
     } 
 
     /**

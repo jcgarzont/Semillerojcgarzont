@@ -41,16 +41,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!--date:"MM/dd/yy"
-                        | uppercase-->
                         <tr *ngFor="let persona of listaPersonas;let i=index;">
                             <th scope="row">{{persona.id}}</th>
                             <td>{{persona.nombre | uppercase }}</td>
                             <td>{{persona.numeroIdentificacion | number }}</td>
                             <td>
-                                <i class="fas fa-search 2x ml-1" (click)="" title="Consultar"></i>
-                                <i class="fas fa-pencil-alt 2x ml-1"  (click)="" title="Editar"></i>
-                                <i class="far fa-times-circle 2x ml-1" (click)="" title="Eliminar"></i>
+                                <i class="fas fa-search 2x ml-1"  (click)="gestionarUsuario(i)" title="Consultar"></i>
+                            
                             </td>
                         </tr>
                     </tbody>

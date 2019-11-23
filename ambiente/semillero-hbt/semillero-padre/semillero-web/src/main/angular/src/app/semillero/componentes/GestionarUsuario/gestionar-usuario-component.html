@@ -1,0 +1,41 @@
+<div class="col-6 text-right">
+    <button type="button" class="btn btn-primary" (click)="crearUsuario()">Crear</button>
+</div>
+
+<div *ngIf="existe">
+    <div class="container">
+        <form [formGroup]="gestionarUsuarioForm">
+            <h1>Gestionar Persona</h1>
+            <hr>
+    
+            <div class="row">
+                <div class="col-6">
+                    <label for="nombreUsuario">Nombre:</label>
+                    <input type="text" class="form-control" id="nombreUsuario" formControlName="nombre"
+                     maxlength="50">
+                </div>
+    
+                <div class="col-6">
+                    <label for="estado">Fecha:</label>
+                    <input type="text" class="form-control" id="identificacionPersona" formControlName="estadoEnum"
+                         maxlength="50">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <span></span>
+                </div>
+            </div>   
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <span></span>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="button" class="btn btn-primary" (click)="modificarNombre()">Modificar Nombre</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

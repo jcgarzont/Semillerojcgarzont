@@ -25,7 +25,7 @@ public interface IGestionarUsuarioLocal {
 	 * <b>Caso de Uso</b>
 	 * @author Juan Camilo
 	 * 
-	 * @param usuarioDTO
+	 * @param id
 	 */
 	public void crearUsuario(UsuarioDTO usuarioDTO);
 	

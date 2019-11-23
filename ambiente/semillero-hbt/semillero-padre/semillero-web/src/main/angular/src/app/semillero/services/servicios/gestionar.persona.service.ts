@@ -23,4 +23,6 @@ import { HttpClient } from '@angular/common/http';
     public consultarPersonas(): Observable<any> {
       return this.httpClient.get('http://localhost:8085/semillero-servicios/rest/GestionarPersona/consultarPersonas');
     }
+
+    
 }

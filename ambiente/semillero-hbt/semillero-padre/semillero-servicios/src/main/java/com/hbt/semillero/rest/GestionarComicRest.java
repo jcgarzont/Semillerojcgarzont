@@ -84,7 +84,6 @@ public class GestionarComicRest {
 		gestionarComicEJB.crearComic(comicDTO);
 		ResultadoDTO resultadoDTO = new ResultadoDTO(Boolean.TRUE, "Comic creado exitosamente");
 		return resultadoDTO;
-		
 	}
 
 	/**

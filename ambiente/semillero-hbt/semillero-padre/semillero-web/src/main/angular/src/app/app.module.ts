@@ -10,12 +10,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './semillero/componentes/menu/menu-component';
 import { BienvenidaComponent } from './semillero/componentes/home/bienvenida-component';
-import { CrearPersonaComponent } from './semillero/componentes/crearPersona/crear-persona-component';
 import { GestionarComicComponent } from './semillero/componentes/gestionarComic/gestionar-comic';
 
 // DTOs
 export { ComicDTO } from './semillero/dto/comic.dto';
 export { ResultadoDTO } from './semillero/dto/resultado.dto';
+//export { UsuarioDTO } from './semillero/dto/usuario.dto';
+
 
 //Manejo de servicios
 
@@ -23,16 +24,17 @@ import {EjemploService} from './semillero/services/ejemplo.service';
 import {AbstractService} from './semillero/services/template.service';
 import { ConsultarComicComponent } from './semillero/componentes/consultarComic/consultar-comic';
 import { GestionarPersonaComponent } from './semillero/componentes/gestionarPersona/gestionar-persona-component';
+import { GestionarUsuarioComponent } from './semillero/componentes/GestionarUsuario/gestionar-usuario-component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     BienvenidaComponent,
-    CrearPersonaComponent,
     GestionarComicComponent,
     ConsultarComicComponent,
-    GestionarPersonaComponent
+    GestionarPersonaComponent,
+    GestionarUsuarioComponent
   ],
   imports: [
     BrowserModule,

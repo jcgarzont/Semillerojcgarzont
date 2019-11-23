@@ -6,6 +6,7 @@ package com.hbt.semillero.ejb;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -34,8 +35,9 @@ public class GestionarUsuarioBean implements IGestionarUsuarioLocal{
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void crearUsuario(UsuarioDTO usuarioDTO) {
 		Usuario usuario = convertirUsuarioDTOToUsuario(usuarioDTO);
-		if (VerificarFecha(usuario)) {
-	        em.persist(usuario);
+		usuario.setNombre(nombreAleatorio());
+		if (verificarFecha(usuario)) {
+			em.persist(usuario);
 		}
 	}
 
@@ -54,8 +56,9 @@ public class GestionarUsuarioBean implements IGestionarUsuarioLocal{
 	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<UsuarioDTO> consultarUsuarios() {
+		FechaExpiracion();
 		List<UsuarioDTO> resultadosUsuarioDTO = new ArrayList<UsuarioDTO>();
-		List<Usuario> resultados = em.createQuery("select c from Persona c").getResultList();
+		List<Usuario> resultados = em.createQuery("select c from Usuario c").getResultList();
 		for (Usuario usuario : resultados) {
 			resultadosUsuarioDTO.add(convertirUsuarioToUsuarioDTO(usuario));
 		}
@@ -101,7 +104,7 @@ public class GestionarUsuarioBean implements IGestionarUsuarioLocal{
 	 * @param usuario
 	 * @return
 	 */
-	private Boolean VerificarFecha(Usuario usuario) {
+	private Boolean verificarFecha(Usuario usuario) {
 		LocalDate hoy = LocalDate.now();
 		if (Math.abs(usuario.getFechaCreacion().compareTo(hoy)) == 0)
 		{
@@ -110,6 +113,16 @@ public class GestionarUsuarioBean implements IGestionarUsuarioLocal{
 		else {
 			return true;
 		}
+	}
+	
+	private String nombreAleatorio() {
+		String uuid = UUID.randomUUID().toString();
+		String number= uuid.replaceAll("[^0-9]", "");
+		number= number.replaceAll("-", "");
+		String uuid2 = uuid.replaceAll("[0-9]", "");		 
+		uuid2 = uuid2.replaceAll("-", "");
+		String randomF = Character.toUpperCase((uuid2.charAt(0))) + Character.toString(number.charAt(0)) + uuid2.substring(1, 6);
+		return randomF;
 	}
 	/**
 	 * 

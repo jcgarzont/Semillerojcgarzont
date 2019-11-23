@@ -38,6 +38,14 @@ public class GestionarPersonaRest {
 	 * @param personaDTO
 	 * @return
 	 */
+	
+	@GET
+	@Path("/saludo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String primerRest() {
+		return "Prueba inicial servicios rest en el semillero java hbt";
+	}
+	
 	@POST
 	@Path("/crear")
 	@Produces(MediaType.APPLICATION_JSON)
